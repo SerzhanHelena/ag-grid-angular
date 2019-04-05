@@ -1,0 +1,26 @@
+<div class="toolbar">
+    <div class="total-count">
+   Total count: {{totalCount}}
+    </div>
+    <div class="selected-records">
+    Selected records count: {{selectedRowsCount}}
+    
+    </div>
+<button id="switched-btn" (click)="switchedToSelectMode($event)">Switch to select mode</button>
+</div>
+<div>
+<ag-grid-angular 
+    #agGrid
+    class="ag-theme-balham videoGrid"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    rowSelection= 'multiple'
+    [pagination]="true"
+    (rowDataChanged)="countDisplayedRows($event)"
+    (selectionChanged) = "countSelectedRows($event)"
+    [getContextMenuItems]="getContextMenuItems"
+    [frameworkComponents]="frameworkComponents"
+    [domLayout]="autoHeight"
+    >
+</ag-grid-angular>
+</div>
