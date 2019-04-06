@@ -10,31 +10,32 @@ describe('workspace-project App', () => {
 
   it('should start with 50 count', () => {
     page.navigateTo();
-    expect(page.getTotalCount()).toEqual('50');
+    expect(page.getTotalCount()).toEqual.bind('{{totalCount}}');
   });
 
-  it('should show checkbox column by clicking switch to select mode', () => {
+  it('should start with "0" count', () => {
     page.navigateTo();
-
-    expect(page.getListHeaders()).toEqual(['', 'Published On', 'Video Title', 'Description']);
-    page.getSwitchButton().click();
-
-    expect(page.getListHeaders()).toEqual([ '', 'Published On', 'Video Title', 'Description', '']);
-
-    page.getSwitchButton().click();
-
-    expect(page.getListHeaders()).toEqual(['', 'Published On', 'Video Title', 'Description']);
+    expect(page.getSelectedRowsCount()).toEqual.bind('{{selectedRowsCount}}');
   });
+
+  // it('should show checkbox column by clicking switch to select mode', () => {
+  //   page.navigateTo();
+
+  //   expect(page.getListHeaders()).toEqual(['', 'Published On', 'Video Title', 'Description']);
+  //   page.getSwitchButton().click();
+
+  //   expect(page.getListHeaders()).toEqual(['', '', 'Published On', 'Video Title', 'Description']);
+
+  //   page.getSwitchButton().click();
+
+  //   expect(page.getListHeaders()).toEqual(['', 'Published On', 'Video Title', 'Description']);
+  // });
 
   it('should have expected column headers', () => {
     page.navigateTo();
-    expect(page.getListHeaders()).toEqual(['', 'Published On', 'Video Title', 'Description']);
+    const arr = ['', 'Published On', 'Video Title', 'Description'];
+    expect(page.getListHeaders()).toEqual(arr);
 });
-
-// it('first row should have expected data', () => {
-//   page.navigateTo();
-//   expect(page.getRowValues(0)).toEqual(['1', '10']);
-// });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

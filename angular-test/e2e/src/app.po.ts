@@ -19,14 +19,7 @@ export class AppPage {
 
   getListHeaders() {
     return element
-        .all(by.css('.ag-header-cell-text'))
-        .map(cell => cell.getText());
+        .all(by.css('.ag-header-cell-text')).getText();
 }
-
-//   getRowValues(id) {
-//     return element
-//         .all(by.css(`div.ag-cell-value`))
-//         .map(cell => cell.getText());
-// }
 
 }

@@ -2,24 +2,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { GridApplicationComponent } from './grid-application/grid-application.component';
-import { HttpClientModule }   from '@angular/common/http';
+import { GridApplicationComponent } from './components/grid-application/grid-application.component';
+import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
-import { GetDataService } from './get-data.service';
-import { ParamsRenderer } from './components/params-renderer';
-import { LinkRenderer } from './components/link-renderer';
+import { GetDataService } from './services/get-data.service';
+import { ImageRendererComponent } from './components/image-renderer.component';
+import { LinkRendererComponent } from './components/link-renderer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridApplicationComponent,
-    ParamsRenderer, 
-    LinkRenderer
+    ImageRendererComponent,
+    LinkRendererComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AgGridModule.withComponents([ParamsRenderer, LinkRenderer])
+    AgGridModule.withComponents([ImageRendererComponent, LinkRendererComponent])
   ],
   providers: [GetDataService],
   bootstrap: [AppComponent]

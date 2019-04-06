@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GetDataService } from '../get-data.service';
+import { GetDataService } from '../../services/get-data.service';
 import { AgGridNg2 } from 'ag-grid-angular';
-import { ParamsRenderer } from "../components/params-renderer";
-import { LinkRenderer } from '../components/link-renderer';
-import { Item } from "../models/Item";
+import { ImageRendererComponent } from '../image-renderer.component';
+import { LinkRendererComponent } from '../link-renderer.component';
+import { Item } from '../../models/Item';
 
 
 @Component({
@@ -13,41 +13,29 @@ import { Item } from "../models/Item";
 })
 
 export class GridApplicationComponent implements OnInit {
-  rowData: Item[] = [];
-  totalCount: number;
-  selectedRowsCount: number;
-  private frameworkComponents;
 
   constructor(private service: GetDataService) {}
+  rowData: Item[] = [];
+  totalCount: number;
+  selectedRowsCount = 0;
+  private frameworkComponents;
   @ViewChild('agGrid') agGrid: AgGridNg2;
-
-  ngOnInit() {
-
-    this.service.getData().subscribe(data => {
-      this.rowData = data;
-    });
-
-    this.frameworkComponents = {
-      paramsRenderer: ParamsRenderer,
-      linkRenderer: LinkRenderer
-    };
-  }
 
   columnDefs = [
     {
-      field: 'checkbox', 
-      checkboxSelection: true, 
-      width: 40, 
-
-      hide: true, 
-      headerCheckboxSelection: true
+      headerName: '',
+      field: 'selectRowsColumn',
+      checkboxSelection: true,
+      width: 40,
+      hide: true,
+      headerCheckboxSelection: true,
     },
     {
-      headerName: '', 
-      field: 'snippet.thumbnails.default.url', 
-      sortable: true, 
-      filter: true, 
-      cellRenderer: "paramsRenderer",
+      headerName: '',
+      field: 'snippet.thumbnails.default.url',
+      sortable: true,
+      filter: true,
+      cellRenderer: 'imageRenderer',
       width: 220,
       autoHeight: true
   },
@@ -64,16 +52,28 @@ export class GridApplicationComponent implements OnInit {
       headerName: 'Video Title',
       field: 'id.videoId',
       sortable: true,
-      cellRenderer: "linkRenderer",
+      cellRenderer: 'linkRenderer',
       width: 500
     },
     {
       headerName: 'Description',
-      field: 'snippet.description', 
-      sortable: true, 
-      width: 950
+      field: 'snippet.description',
+      sortable: true,
+      width: 1050
     }
 ];
+
+  ngOnInit() {
+
+    this.service.getData().subscribe(data => {
+      this.rowData = data;
+    });
+
+    this.frameworkComponents = {
+      imageRenderer: ImageRendererComponent,
+      linkRenderer: LinkRendererComponent
+    };
+  }
 
 
 countDisplayedRows(params) {
@@ -82,35 +82,31 @@ countDisplayedRows(params) {
 
 countSelectedRows(event) {
   const selectedNodes = this.agGrid.api.getSelectedNodes();
-  const selectedData = selectedNodes.map( node => node.data );
-  const selectedDataStringPresentation = selectedData.map( node => node.make + ' ' + node.model).join(', ');
   this.selectedRowsCount = selectedNodes.length;
 }
 
 switchedToSelectMode() {
-  if(this.columnDefs[0].hide) {
+  if (this.columnDefs[0].hide) {
     this.columnDefs[0].hide = false;
-    this.agGrid.columnApi.setColumnsVisible(["checkbox"], true);
-  }
-  else {
+    this.agGrid.columnApi.setColumnsVisible(['selectRowsColumn'], true);
+  } else {
     this.columnDefs[0].hide = true;
-    this.agGrid.columnApi.setColumnsVisible(["checkbox"], false);
+    this.agGrid.columnApi.setColumnsVisible(['selectRowsColumn'], false);
   }
 }
 
 
 getContextMenuItems(params) {
-  console.log(params);
   const result = [
     {
       name: 'Open in new tab',
-      action: function(url) {
+      action(url: string) {
         window.open('https://www.youtube.com/watch?v=' + params.value, '_blank');
-      }  
+      }
   },
-      "separator",
-      "copy",
-      "copyWithHeaders"
+      'separator',
+      'copy',
+      'copyWithHeaders'
   ];
   return result;
 }

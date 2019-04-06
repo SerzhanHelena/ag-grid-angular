@@ -1,12 +1,12 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
-import {ICellRendererAngularComp} from "ag-grid-angular";
+import {ICellRendererAngularComp} from 'ag-grid-angular';
 
 @Component({
-    selector: 'params-cell',
+    selector: 'image-cell',
     template: `<img src="{{params.value}}" width="120" height="90">`
 })
-export class ParamsRenderer implements ICellRendererAngularComp {
+export class ImageRendererComponent implements ICellRendererAngularComp {
     public params: any;
 
     agInit(params: any): void {

@@ -2,5 +2,13 @@
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
 .ag-theme-balham {
-    font-size: 20px!important;
+    font-size: 20px;
+}
+
+.ag-header {
+    font-size: 18px;
+}
+
+.ag-cell {
+    white-space: normal;
 }

@@ -6,7 +6,7 @@
     Selected records count: <span>{{selectedRowsCount}}</span>
     
     </div>
-<button id="switched-btn" (click)="switchedToSelectMode($event)">Switch to select mode</button>
+<button class="switched-btn" (click)="switchedToSelectMode($event)">Switch to select mode</button>
 </div>
 <div>
 <ag-grid-angular 
@@ -21,6 +21,7 @@
     (selectionChanged) = "countSelectedRows($event)"
     [getContextMenuItems]="getContextMenuItems"
     [frameworkComponents]="frameworkComponents"
+    [suppressRowClickSelection]="true"
     >
 </ag-grid-angular>
 </div>
