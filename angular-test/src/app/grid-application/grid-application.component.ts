@@ -3,6 +3,7 @@ import { GetDataService } from '../get-data.service';
 import { AgGridNg2 } from 'ag-grid-angular';
 import { ParamsRenderer } from "../components/params-renderer";
 import { LinkRenderer } from '../components/link-renderer';
+import { Item } from "../models/Item";
 
 
 @Component({
@@ -10,68 +11,68 @@ import { LinkRenderer } from '../components/link-renderer';
   templateUrl: './grid-application.component.html',
   styleUrls: ['./grid-application.component.css']
 })
+
 export class GridApplicationComponent implements OnInit {
-  rowData = [];
+  rowData: Item[] = [];
   totalCount: number;
-  selectedRowsCount;
+  selectedRowsCount: number;
   private frameworkComponents;
-  private columnTypes;
 
-  constructor(private service: GetDataService) {
-
-    this.columnTypes = {
-      dateColumn: {
-        filter: "agDateColumnFilter",
-        filterParams: {
-          comparator: function(filterLocalDateAtMidnight, cellValue) {
-            var cellDate = new Date(cellValue);
-            if (cellDate < filterLocalDateAtMidnight) {
-              return -1;
-            } else if (cellDate > filterLocalDateAtMidnight) {
-              return 1;
-            } else {
-              return 0;
-            }
-          }
-      }
-    }
-  }
-   }
+  constructor(private service: GetDataService) {}
   @ViewChild('agGrid') agGrid: AgGridNg2;
 
   ngOnInit() {
 
     this.service.getData().subscribe(data => {
-      this.rowData = data; 
-      console.log(this.rowData);
+      this.rowData = data;
     });
-    
-this.frameworkComponents = {
-  paramsRenderer: ParamsRenderer,
-  linkRenderer: LinkRenderer
-};
+
+    this.frameworkComponents = {
+      paramsRenderer: ParamsRenderer,
+      linkRenderer: LinkRenderer
+    };
   }
 
-
   columnDefs = [
-    {field: 'checkbox', checkboxSelection: true, width: 40, hide: true, headerCheckboxSelection: true},
-    
-    {headerName: '', 
-    field: 'snippet.thumbnails.default.url', 
-    sortable: true, 
-    filter: true, 
-    cellRenderer: "paramsRenderer",
-    width: 120,
-    autoHeight: true
+    {
+      field: 'checkbox', 
+      checkboxSelection: true, 
+      width: 40, 
+
+      hide: true, 
+      headerCheckboxSelection: true
+    },
+    {
+      headerName: '', 
+      field: 'snippet.thumbnails.default.url', 
+      sortable: true, 
+      filter: true, 
+      cellRenderer: "paramsRenderer",
+      width: 220,
+      autoHeight: true
   },
-    
-    {headerName: 'Published On', field: 'snippet.publishedAtDate', 
-    valueGetter: function aPlusBValueGetter(params) {;
+    {
+      headerName: 'Published On',
+      field: 'snippet.publishedAtDate',
+      valueGetter: function aPlusBValueGetter(params) {
       return new Date(params.data.snippet.publishedAt).toLocaleString('en');
     },
-    sortable: true},
-    {headerName: 'Video Title', field: 'id.videoId', sortable: true, cellRenderer: "linkRenderer"},
-    {headerName: 'Description', field: 'snippet.description', sortable: true, width: 600}
+      sortable: true,
+      width: 270
+    },
+    {
+      headerName: 'Video Title',
+      field: 'id.videoId',
+      sortable: true,
+      cellRenderer: "linkRenderer",
+      width: 500
+    },
+    {
+      headerName: 'Description',
+      field: 'snippet.description', 
+      sortable: true, 
+      width: 950
+    }
 ];
 
 
@@ -105,14 +106,12 @@ getContextMenuItems(params) {
       name: 'Open in new tab',
       action: function(url) {
         window.open('https://www.youtube.com/watch?v=' + params.value, '_blank');
-      }
-      
+      }  
   },
       "separator",
       "copy",
       "copyWithHeaders"
   ];
-
   return result;
 }
 

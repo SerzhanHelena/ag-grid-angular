@@ -1,9 +1,9 @@
 <div class="toolbar">
     <div class="total-count">
-   Total count: {{totalCount}}
+   Total count: <span>{{totalCount}}</span>
     </div>
     <div class="selected-records">
-    Selected records count: {{selectedRowsCount}}
+    Selected records count: <span>{{selectedRowsCount}}</span>
     
     </div>
 <button id="switched-btn" (click)="switchedToSelectMode($event)">Switch to select mode</button>
@@ -16,11 +16,11 @@
     [columnDefs]="columnDefs"
     rowSelection= 'multiple'
     [pagination]="true"
+    [paginationPageSize]="15"
     (rowDataChanged)="countDisplayedRows($event)"
     (selectionChanged) = "countSelectedRows($event)"
     [getContextMenuItems]="getContextMenuItems"
     [frameworkComponents]="frameworkComponents"
-    [domLayout]="autoHeight"
     >
 </ag-grid-angular>
 </div>

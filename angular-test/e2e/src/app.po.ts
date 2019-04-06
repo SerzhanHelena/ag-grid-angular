@@ -2,10 +2,31 @@ import { browser, by, element } from 'protractor';
 
 export class AppPage {
   navigateTo() {
-    return browser.get(browser.baseUrl) as Promise<any>;
+    return browser.get('/');
   }
 
-  getTitleText() {
-    return element(by.css('app-root h1')).getText() as Promise<string>;
+  getSwitchButton() {
+    return element(by.cssContainingText('button', 'Switch to select mode'));
   }
+
+  getTotalCount() {
+    return element(by.cssContainingText('div', 'Total count')).$('span').getText();
+  }
+
+  getSelectedRowsCount() {
+    return element(by.cssContainingText('div', 'Selected records count')).$('span').getText();
+  }
+
+  getListHeaders() {
+    return element
+        .all(by.css('.ag-header-cell-text'))
+        .map(cell => cell.getText());
+}
+
+//   getRowValues(id) {
+//     return element
+//         .all(by.css(`div.ag-cell-value`))
+//         .map(cell => cell.getText());
+// }
+
 }
