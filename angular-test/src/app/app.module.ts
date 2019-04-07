@@ -8,6 +8,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { GetDataService } from './services/get-data.service';
 import { ImageRendererComponent } from './components/image-renderer.component';
 import { LinkRendererComponent } from './components/link-renderer.component';
+import 'ag-grid-enterprise';
 
 @NgModule({
   declarations: [

@@ -59,7 +59,7 @@ export class GridApplicationComponent implements OnInit {
       headerName: 'Description',
       field: 'snippet.description',
       sortable: true,
-      width: 1050
+      width: 950
     }
 ];
 

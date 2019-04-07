@@ -10,16 +10,16 @@ export class AppPage {
   }
 
   getTotalCount() {
-    return element(by.cssContainingText('div', 'Total count')).$('span').getText();
+    return element(by.css('.total-count')).$('span').getText();
   }
 
   getSelectedRowsCount() {
-    return element(by.cssContainingText('div', 'Selected records count')).$('span').getText();
+    return element(by.css('.selected-records')).$('span').getText();
   }
 
   getListHeaders() {
     return element
-        .all(by.css('.ag-header-cell-text')).getText();
+        .all(by.css('.ag-header-cell-text')).getAttribute('innerText');
 }
 
 }
