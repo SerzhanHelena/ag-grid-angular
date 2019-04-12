@@ -53,7 +53,8 @@ export class GridApplicationComponent implements OnInit {
       field: 'id.videoId',
       sortable: true,
       cellRenderer: 'linkRenderer',
-      width: 500
+      width: 500,
+      onCellContextMenu: this.getContextMenuItems
     },
     {
       headerName: 'Description',

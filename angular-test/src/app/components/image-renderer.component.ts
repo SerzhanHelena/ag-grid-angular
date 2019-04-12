@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
 
 @Component({
-    selector: 'image-cell',
+    selector: 'app-image-cell',
     template: `<img src="{{params.value}}" width="120" height="90">`
 })
 export class ImageRendererComponent implements ICellRendererAngularComp {
