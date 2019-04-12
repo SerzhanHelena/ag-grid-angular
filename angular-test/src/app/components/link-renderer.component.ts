@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
 
 @Component({
-    selector: 'link-cell',
+    selector: 'app-link-cell',
     template: `<a href="https://www.youtube.com/watch?v={{params.value}}" target="_blank">
     https://www.youtube.com/watch?v={{params.value}}</a>`
 })
